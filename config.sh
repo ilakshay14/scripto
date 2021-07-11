@@ -8,6 +8,7 @@ BASE_DIR="/Users/lakshaymalhotra/Documents/workspace"
 
 
 REPO_URL="https://github.com/ilakshay14/reactBoilerPlate.git"
+BRANCH=""
 
 EchoError() {
     echo -e "${RED}error${NC} $1"
@@ -21,25 +22,27 @@ ShowMenu () {
     echo ""
     echo "Welcome to Frontend auto setup utility."
     echo ""
-    echo "Please choose your config -"
-    echo "1. React, Redux, Axios, Styled Components"
-    echo "2. React, Redux, Apollo, GraphQL, Styled Components"
-    echo "3. React, Apollo, GraphQL, Styled Components"
-    echo ""
+    echo "Please choose your config:"
+    echo "1. React, Redux, Apollo, GraphQL, Styled Components"
+    echo "2. React, Apollo, GraphQL, Styled Components"
+    echo "3. React, Redux, Axios, Styled Components"
     echo "4. Exit."
     echo ""
 }
 
 SetConfig () {
     case $1 in
-        0) EchoInfo "You have selected an Invalid option"
+        0) EchoError "you have selected an invalid option"
         # "You have selected an Invalid option"
         ;;
-        1) echo "You have selected - 1. React, Redux, Axios, Styled Components?"
+        1) echo "you have selected: 1. React, Redux, Apollo, GraphQL, Styled Components?"
+        BRANCH="master"
         ;;
-        2) echo "You have selected - 2. React, Redux, Apollo, GraphQL, Styled Components?"
+        2) echo "you have selected: 2. React, Apollo, GraphQL, Styled Components?"
+        BRANCH="react/gqlNoRedux"
         ;;
-        3) echo "You have selected - 3. React, Apollo, GraphQL, Styled Components?"
+        3) echo "you have selected: 3. React, Redux, Axios, Styled Components?"
+        BRANCH="react/basic"
         ;;
         4) exit 0
         ;;
@@ -48,12 +51,12 @@ SetConfig () {
 
 CreateDirAndClone () {
     EchoInfo "creating directory in ${BASE_DIR}..."
-    read -p "Enter the new folder name for new project: " -r FOLDER_NAME
+    read -p "enter the new folder name for the project: " -r FOLDER_NAME
     if [ -d "$BASE_DIR/$FOLDER_NAME" ]; then
-        EchoError "Directory already exists. Try again."
+        EchoError "directory already exists. try again."
         return 128
     else
-        command git clone -b wthRedux $REPO_URL "$BASE_DIR/$FOLDER_NAME"
+        command git clone -b $BRANCH $REPO_URL "$BASE_DIR/$FOLDER_NAME"
         return $?
     fi
 }
@@ -65,16 +68,13 @@ do
 
     SetConfig $CHOICE
 
-    read -p "Please confirm (y/n): " $CONFIRM
-    if [[ $CONFIRM == "y" && $CHOICE -eq 1 ]]
+    read -p "Please confirm (y/n): " CONFIRM
+    if [ $CONFIRM == "y" ]
     then
-        
         CreateDirAndClone
         isDirectoryCreated=$?
-        echo "isDirectoryCreated = $isDirectoryCreated"
 
         if [ $isDirectoryCreated != 0 ]; then
-            EchoError "please check the above error"
             exit 0
         else
             command cd "$BASE_DIR/$FOLDER_NAME"
@@ -84,11 +84,12 @@ do
                 command code "$BASE_DIR/$FOLDER_NAME"
                 exit 0
             else
-                echo -e "${RED}error${NC} Please check your package.json"
+                echo -e "${RED}error${NC} please check your package.json"
                 exit 0;
             fi
         fi
     else
-        echo "Boilerplate is coming soon."
+        BRANCH=""
+        EchoInfo "you may choose again or exit."
     fi
 done
