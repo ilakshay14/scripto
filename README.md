@@ -25,11 +25,33 @@
 
 <h2>How to tune me for your first use?</h2>
 <p>You can ammend the following variables as per your usage.</p>
-| Name          | Purpose                                                               | Type   |
-| ------------- |:---------------------------------------------------------------------:| ------:|
-| BASE_DIR      | the directory where you will store the project.                       | String |
-| REPO_URL      | URL of your boilerplate repository.                                   | String |
-| BRANCH        | Branch name in the repos. You can modify them for your custom config. | String |
+ 
+ <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Purpose</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>BASE_DIR</td>
+            <td>the directory where you will store the project.</td>
+            <td>String</td>
+        </tr>
+        <tr>
+            <td>REPO_URL</td>
+            <td>URL of your boilerplate repository.</td>
+            <td>String</td>
+        </tr>
+        <tr>
+            <td>BRANCH</td>
+            <td>Branch name in the repos. You can modify them for your custom config.</td>
+            <td>String</td>
+        </tr>
+    </tbody>
+</table>
 
 <h2>Disclaimer</h2>
 <p>I am just trying to help you! I do what you say.</p>
