@@ -23,6 +23,13 @@
     And just like that, you are up and running! By default, I use Yarn and VS Code, but my future upgrades might allow me to use NPM and other editors as well!
 </p>
 
+<h2>Wohoo! I got new powers!</h2>
+<p>
+    Hey there! On Today i.e. 17th July 2021, I got a new super power! I now support installations via npm also.
+    </br>
+    Isn't that amazing! :sunglasses:
+</p>
+
 <h2>How to tune me for your first use?</h2>
 <p>You can ammend the following variables as per your usage.</p>
  

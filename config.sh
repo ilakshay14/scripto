@@ -1,21 +1,27 @@
 CHOICE=0
 CONFIRM="y"
 RED='\033[0;31m'
+YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 FOLDER_NAME=""
 BASE_DIR="/Users/lakshaymalhotra/Documents/workspace"
+PACKAGE_INSTALLER='yarn'
 
 
 REPO_URL="https://github.com/ilakshay14/reactBoilerPlate.git"
 BRANCH=""
 
 EchoError() {
-    echo -e "${RED}error${NC} $1"
+    echo -e "${RED}scripto ERROR${NC} $1"
 }
 
 EchoInfo() {
-    echo -e "${BLUE}info${NC} $1"
+    echo -e "${BLUE}scripto INFO${NC} $1"
+}
+
+EchoWarning() {
+    echo -e "${YELLOW}scripto WARN${NC} $1"
 }
 
 ShowMenu () {
@@ -61,6 +67,45 @@ CreateDirAndClone () {
     fi
 }
 
+SetPackageInstaller () {
+    EchoInfo "checking for yarn..."
+    command yarnege -v
+    if [ $? != 0 ]; then
+        EchoWarning "yarn not found"
+        EchoInfo "I recommend using yarn."
+        EchoInfo "checking for npm..."
+        command npm -v
+        
+        if [ $? != 0 ]; then
+            EchoError "npm and yarn both are not installed."
+            EchoInfo "please install either yarn or npm. exiting the assistant."
+            exit 0;
+        else
+            PACKAGE_INSTALLER="npm"
+        
+        fi
+    fi    
+
+}
+
+ExecPackageManagerCommands () {
+    if [ PACKAGE_INSTALLER == "yarn" ]; then
+        # command ${PACKAGE_INSTALLER} && ${PACKAGE_INSTALLER} upgrade
+        EchoInfo "exec yarn install..."
+        command ${PACKAGE_INSTALLER}
+        EchoInfo "exec yarn upgrade..."
+        command ${PACKAGE_INSTALLER} upgrade
+    else
+        EchoInfo "exec npm install..."
+        command ${PACKAGE_INSTALLER} install
+        EchoInfo "exec npm update..."
+        command ${PACKAGE_INSTALLER} update
+        EchoInfo "exec npm audit fix..."
+        command ${PACKAGE_INSTALLER} audit fix
+
+    fi
+}
+
 until [ $CHOICE -eq 4 ]
 do
     ShowMenu
@@ -71,6 +116,7 @@ do
     read -p "Please confirm (y/n): " CONFIRM
     if [ $CONFIRM == "y" ]
     then
+        SetPackageInstaller
         CreateDirAndClone
         isDirectoryCreated=$?
 
@@ -78,8 +124,9 @@ do
             exit 0
         else
             command cd "$BASE_DIR/$FOLDER_NAME"
-            command yarn && yarn upgrade
-
+            # command yarn && yarn upgrade
+            # command ${PACKAGE_INSTALLER} && ${PACKAGE_INSTALLER} upgrade
+            ExecPackageManagerCommands
             if [ $? == 0 ]; then
                 command code "$BASE_DIR/$FOLDER_NAME"
                 exit 0
