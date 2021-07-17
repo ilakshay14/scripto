@@ -69,7 +69,7 @@ CreateDirAndClone () {
 
 SetPackageInstaller () {
     EchoInfo "checking for yarn..."
-    command yarnege -v
+    command yarn -v
     if [ $? != 0 ]; then
         EchoWarning "yarn not found"
         EchoInfo "I recommend using yarn."
