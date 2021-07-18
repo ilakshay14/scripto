@@ -7,8 +7,6 @@ NC='\033[0m'
 FOLDER_NAME=""
 BASE_DIR="/Users/lakshaymalhotra/Documents/workspace"
 PACKAGE_INSTALLER="yarn"
-
-
 REPO_URL="https://github.com/ilakshay14/reactBoilerPlate.git"
 BRANCH=""
 
@@ -89,6 +87,8 @@ SetPackageInstaller () {
 }
 
 ExecPackageManagerCommands () {
+    command git init
+    command git remote remove origin
     if [ $PACKAGE_INSTALLER == "yarn" ] 
     then {
         EchoInfo "exec yarn install..."
@@ -132,7 +132,7 @@ do
                 command code "$BASE_DIR/$FOLDER_NAME"
                 exit 0
             else
-                EchoError "please check your package.json"
+                EchoError "please check package.json"
                 exit 0;
             fi
         fi
