@@ -6,7 +6,7 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 FOLDER_NAME=""
 BASE_DIR="/Users/lakshaymalhotra/Documents/workspace"
-PACKAGE_INSTALLER='yarn'
+PACKAGE_INSTALLER="yarn"
 
 
 REPO_URL="https://github.com/ilakshay14/reactBoilerPlate.git"
@@ -89,20 +89,21 @@ SetPackageInstaller () {
 }
 
 ExecPackageManagerCommands () {
-    if [ PACKAGE_INSTALLER == "yarn" ]; then
-        # command ${PACKAGE_INSTALLER} && ${PACKAGE_INSTALLER} upgrade
+    if [ $PACKAGE_INSTALLER == "yarn" ] 
+    then {
         EchoInfo "exec yarn install..."
         command ${PACKAGE_INSTALLER}
         EchoInfo "exec yarn upgrade..."
         command ${PACKAGE_INSTALLER} upgrade
-    else
+    }
+    else {
         EchoInfo "exec npm install..."
         command ${PACKAGE_INSTALLER} install
         EchoInfo "exec npm update..."
         command ${PACKAGE_INSTALLER} update
         EchoInfo "exec npm audit fix..."
         command ${PACKAGE_INSTALLER} audit fix
-
+    }
     fi
 }
 
@@ -131,7 +132,7 @@ do
                 command code "$BASE_DIR/$FOLDER_NAME"
                 exit 0
             else
-                echo -e "${RED}error${NC} please check your package.json"
+                EchoError "please check your package.json"
                 exit 0;
             fi
         fi
