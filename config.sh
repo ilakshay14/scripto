@@ -43,10 +43,10 @@ SetConfig () {
         BRANCH="master"
         ;;
         2) echo "you have selected: 2. React, Apollo, GraphQL, Styled Components?"
-        BRANCH="react/gqlNoRedux"
+        BRANCH="react-gqlNoRedux"
         ;;
         3) echo "you have selected: 3. React, Redux, Axios, Styled Components?"
-        BRANCH="react/basic"
+        BRANCH="react-basic"
         ;;
         4) exit 0
         ;;
